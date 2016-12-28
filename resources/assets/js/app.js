@@ -1,0 +1,2 @@
+//noinspection JSUnresolvedFunction
+require('./bootstrap');
