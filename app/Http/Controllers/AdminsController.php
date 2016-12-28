@@ -13,6 +13,7 @@
 		{
 			$this->middleware('auth', ['except' => [
 				'login',
+				'register',
 			]]);
 
 
