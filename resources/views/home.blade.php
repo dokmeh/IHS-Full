@@ -5,6 +5,7 @@
         <h2>HEALTH SYSTEM</h2>
     </div>
     <div class="enter-links">
+        <a href="/fa" class="enter-link ba-line">Fa</a>
         <a href="/about" class="enter-link ba-line">About</a>
         <a href="/projects" class="enter-link ba-line">Projects</a>
         <a href="/awards" class="enter-link ba-line">Awards</a>

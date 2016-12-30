@@ -5,6 +5,7 @@
         <h2>سیستم سلامت</h2>
     </div>
     <div class="enter-links">
+        <a href="/" class="enter-link ba-line">En</a>
         <a href="/fa/about" class="enter-link ba-line">درباره ما</a>
         <a href="/fa/projects" class="enter-link ba-line">پروژه ها</a>
         <a href="/fa/awards" class="enter-link ba-line">جوایز</a>
