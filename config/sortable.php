@@ -1,8 +1,14 @@
 <?php
 
+	use App\Project;
+	use App\Photo;
+	use App\Award;
+
 	return [
 		'entities' => [
-			'projects' => '\App\Project',
-			// 'articles' => ['entity' => '\Article', 'relation' => 'tags'] for many to many or many to many polymorphic relation sorting
+			'projects' => Project::class,
+			'photos'   => Photo::class,
+			'awards'   => Award::class,
+			//			'projects' => ['entity' => '\App\Project', 'relation' => 'photos'],
 		],
 	];

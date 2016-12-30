@@ -14,9 +14,9 @@
 		{
 			Schema::create('thumbnails', function (Blueprint $table) {
 				$table->increments('id');
-				$table->integer('project_id')->unsigned();
+				$table->integer('thumbnailable_id');
+				$table->string('thumbnailable_type');
 				$table->string('thumbnail_path');
-				$table->foreign('project_id')->references('id')->on('projects')->onDelete('CASCADE')->onUpdate('CASCADE');
 				$table->timestamps();
 			});
 		}

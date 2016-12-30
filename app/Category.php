@@ -7,6 +7,7 @@
 	class Category extends Model {
 		protected $fillable = [
 			'name',
+			'name_fa',
 		];
 
 		public function projects()

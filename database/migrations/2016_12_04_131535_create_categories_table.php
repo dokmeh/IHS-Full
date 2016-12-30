@@ -15,6 +15,7 @@
 			Schema::create('categories', function (Blueprint $table) {
 				$table->increments('id');
 				$table->string('name');
+				$table->string('name_fa');
 				$table->timestamps();
 			});
 		}

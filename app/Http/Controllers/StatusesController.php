@@ -6,52 +6,33 @@
 	use Illuminate\Http\Request;
 
 	class StatusesController extends Controller {
-		public function index()
+
+		public function store(Request $request, Status $status)
 		{
-			//
+			$status->create($request->all());
+
+			return back();
 		}
 
-		public function create()
+		public function destroy(Status $status)
 		{
-			//
+			$status->delete();
+
+			return back();
 		}
 
-		public function store(Request $request)
+		public function update(Request $request, Status $status)
 		{
-			Status::create($request->all());
-
-			//			flash()->success('Done', 'New Status Has been added');
-
-			return redirect('admin/status/create');
-		}
-
-		public function show($id)
-		{
-			//
-		}
-
-		public function edit($id)
-		{
-			//
-		}
-
-		public function update(Request $request, $id)
-		{
-			$status = Status::find($id);
 			$status->update($request->all());
 
-			//			flash()->success('Done', 'The Category Has been Updated.');
-
 			return back();
 		}
 
-		public function destroy($id)
+		public function status()
 		{
-			$status = Status::find($id);
-			$status->destroy($id);
+			$statuses = Status::all();
 
-			//			flash()->error('Deleted', 'The Status Has been Deleted.');
-
-			return back();
+			return view('admin.create-status', compact('statuses'));
 		}
+
 	}

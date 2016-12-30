@@ -7,9 +7,8 @@
 	class Thumbnail extends Model {
 		protected $fillable = ['thumbnail_path'];
 
-		public function project()
+		public function thumbnailable()
 		{
-			return $this->belongsTo(Project::class);
-
+			return $this->morphTo();
 		}
 	}

@@ -3,21 +3,17 @@
 	namespace App;
 
 	use Illuminate\Database\Eloquent\Model;
+	use Rutorika\Sortable\SortableTrait;
+
 
 	class Photo extends Model {
-		protected $fillable = [
-			'image',
-		    'project_id',
-		    'award_id'
-		];
+		use SortableTrait;
 
-		public function project()
-		{
-			return $this->belongsTo(Project::class);
-		}
+		protected static $sortableField = 'sort';
+		protected        $fillable      = ['image', 'name', 'sort'];
 
-		public function award()
+		public function photoable()
 		{
-			return $this->belongsTo(Award::class,'project_id');
+			return $this->morphTo();
 		}
 	}

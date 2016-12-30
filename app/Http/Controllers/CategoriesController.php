@@ -6,50 +6,34 @@
 	use Illuminate\Http\Request;
 
 	class CategoriesController extends Controller {
-		public function index()
-		{
 
+		public function store(Request $request, Category $category)
+		{
+			$category->create($request->all());
+
+			return back();
 		}
 
-		public function create()
+		public function destroy(Category $category)
 		{
-			//
+			$category->projects()->update(['visible' => 0]);
+			$category->delete();
+
+			return back();
 		}
 
-		public function store(Request $request)
+		public function update(Request $request, Category $category)
 		{
-			Category::create($request->all());
-//			flash()->success('Done', 'New Category Has been added.');
-
-			return redirect('admin/category/create');
-		}
-
-		public function show($id)
-		{
-			//
-		}
-
-		public function edit($id)
-		{
-			//
-		}
-
-		public function update(Request $request, $id)
-		{
-			$category = Category::find($id);
 			$category->update($request->all());
-//			flash()->success('Done', 'The Category Has been Updated.');
 
 			return back();
-
 		}
 
-		public function destroy($id)
+		public function category()
 		{
-			$category = Category::find($id);
-			$category->destroy($id);
-//			flash()->error('Deleted', 'The Category Has been Deleted.');
+			$categories = Category::all();
 
-			return back();
+			return view('admin.create-category', compact('categories'));
 		}
+
 	}

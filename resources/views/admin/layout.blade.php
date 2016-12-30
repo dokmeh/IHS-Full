@@ -1,79 +1,33 @@
 <!DOCTYPE html>
 <html>
 <head>
+    {{ $event = NULL }}
     <title>IHS - Panel</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}"/>
-    <link rel="stylesheet" type="text/css" href="{{ elixir('css/all.css') }}">
-    <link rel="stylesheet" type="text/css"
-          href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css">
-    <link rel="stylesheet" type="text/css"
-          href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/4.3.0/min/dropzone.min.css">
-    <script src="{{ elixir('js/all.js') }}"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.1/js/bootstrap-select.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.5/js/bootstrap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-switch/3.3.2/js/bootstrap-switch.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/4.5.0/tinymce.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-growl/1.0.0/jquery.bootstrap-growl.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/4.3.0/min/dropzone.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert-dev.min.js"></script>
-    <script>tinymce.PluginManager.add('placeholder', function (editor) {
-            editor.on('init', function () {
-                var label = new Label;
-                onBlur();
-                tinymce.DOM.bind(label.el, 'click', onFocus);
-                editor.on('focus', onFocus);
-                editor.on('blur', onBlur);
-                editor.on('change', onBlur);
-                editor.on('setContent', onBlur);
-                function onFocus() {
-                    if (!editor.settings.readonly === true) {
-                        label.hide();
-                    }
-                    editor.execCommand('mceFocus', false);
-                }
+    <link href="/gentelella/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/gentelella/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link href="/gentelella/vendors/nprogress/nprogress.css" rel="stylesheet">
+    <link href="/gentelella/vendors/iCheck/skins/flat/green.css" rel="stylesheet">
+    <link href="/gentelella/vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css"
+          rel="stylesheet">
+    <link href="/gentelella/vendors/jqvmap/dist/jqvmap.min.css" rel="stylesheet"/>
+    <link href="/gentelella/vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
+    <link href="/gentelella/vendors/switchery/dist/switchery.min.css" rel="stylesheet">
 
-                function onBlur() {
-                    if (editor.getContent() == '') {
-                        label.show();
-                    } else {
-                        label.hide();
-                    }
-                }
-            });
-            var Label            = function () {
-                var placeholder_text     = editor.getElement().getAttribute("placeholder") || editor.settings.placeholder;
-                var placeholder_attrs    = editor.settings.placeholder_attrs || {
-                        style: {
-                            position     : 'absolute',
-                            top          : '2px',
-                            left         : 0,
-                            color        : '#aaaaaa',
-                            padding      : '.25%',
-                            margin       : '5px',
-                            width        : '80%',
-                            'font-size'  : '17px !important;',
-                            overflow     : 'hidden',
-                            'white-space': 'pre-wrap'
-                        }
-                    };
-                var contentAreaContainer = editor.getContentAreaContainer();
-                tinymce.DOM.setStyle(contentAreaContainer, 'position', 'relative');
-                this.el = tinymce.DOM.add(contentAreaContainer, "label", placeholder_attrs, placeholder_text);
-            }
-            Label.prototype.hide = function () {
-                tinymce.DOM.setStyle(this.el, 'display', 'none');
-            }
-            Label.prototype.show = function () {
-                tinymce.DOM.setStyle(this.el, 'display', '');
-            }
-        });
+    <link href="/gentelella/vendors/dropzone/dist/min/dropzone.min.css" rel="stylesheet">
+    <link href="/gentelella/build/css/custom.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/css/admin/sweetalert.css">
+    <script src="/gentelella/vendors/jquery/dist/jquery.min.js"></script>
+    <script src="/gentelella/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="/js/admin/jquery-ui.js"></script>
+    <script src="/js/admin/tether.js"></script>
+    {{--<script src="/js/admin/bootstrap-4.js"></script>--}}
+    <script src="/js/admin/bootstrap-select.js"></script>
+    <script src="/js/admin/bootstrap-switch.js"></script>
+    <script src="/js/admin/bootstrap-growl.js"></script>
+    <script src="/gentelella/vendors/switchery/dist/switchery.min.js"></script>
 
-        tinymce.init({selector: "textarea", plugins: ["placeholder"]});
-    </script>
     <style>
         .grid-actions {
             text-align : right;
@@ -105,160 +59,524 @@
 
         /** forms */
     </style>
-
-
 </head>
-<body>
-<div class="app app-default">
-    <aside class="app-sidebar" id="sidebar">
-        <div class="sidebar-header">
-            <a class="sidebar-brand" href="/admin"><span class="highlight">D-S</span> CMS</a>
-            <button type="button" class="sidebar-toggle">
-                <i class="fa fa-times"></i>
-            </button>
-        </div>
+<body class="nav-md">
+<div class="container body">
+    <div class="main_container">
+        <div class="col-md-3 left_col">
+            <div class="left_col scroll-view">
+                <div class="navbar nav_title" style="border: 0;">
+                    <a href="index.html" class="site_title"><img height="35px" width="35px" src="/logo-sign.png"
+                                                                 alt="">
+                        <span>Dokmeh Studio</span></a>
+                </div>
 
-        <div class="sidebar-menu">
-            <ul class="sidebar-nav">
-                <li class="active">
-                    <a href="/admin">
-                        <div class="icon">
-                            <i class="fa fa-tasks" aria-hidden="true"></i>
-                        </div>
-                        <div class="title">Dashboard</div>
-                    </a>
-                </li>
+                <div class="clearfix"></div>
+
+                <!-- menu profile quick info -->
+                <div class="profile clearfix">
+                    <div class="profile_pic">
+                        <img src="/gentelella/production/images/logo.png" alt="..." class="img-circle profile_img">
+                    </div>
+                    <div class="profile_info">
+                        <span>Welcome,</span>
+                        <h2>{{ auth()->user()->name  }}</h2>
+                    </div>
+                </div>
+                <!-- /menu profile quick info -->
+
+                <br/>
+
+                <!-- sidebar menu -->
+                <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+                    <div class="menu_section">
+                        <h3>General</h3>
+                        <ul class="nav side-menu">
+                            <li><a href="/admin"><i class="fa fa-home"></i> Home </a>
+                            </li>
+                            <li><a><i class="fa fa-building-o"></i> Projects <span
+                                            class="fa fa-chevron-down"></span></a>
+                                <ul class="nav child_menu">
+                                    <li><a href="/admin/project">All Projects</a></li>
+                                    <li><a href="/admin/project/create">Create project</a></li>
+                                    <li><a href="/admin/project/sort">Sort projects</a></li>
+
+                                </ul>
+                            </li>
+
+                            <li><a><i class="fa fa-trophy"></i> Awards <span class="fa fa-chevron-down"></span></a>
+                                <ul class="nav child_menu">
+                                    <li><a href="/admin/awards">All Awards</a></li>
+                                </ul>
+                            </li>
 
 
-                <li class="dropdown">
-                    <a href="/admin/project/create" class="dropdown-toggle" data-toggle="dropdown">
-                        <div class="icon">
-                            <i class="fa fa-file-o" aria-hidden="true"></i>
-                        </div>
-                        <div class="title">Projects</div>
-                    </a>
-                    <div class="dropdown-menu">
-                        <ul>
-                            <li class="section"><i class="fa fa-file-o" aria-hidden="true"></i> Admin</li>
-                            <li><a href="/admin/project/create">Add a new Project</a></li>
-                            <li><a href="/admin/category/create">Add a Category</a></li>
-                            <li><a href="/admin/status/create">Add a Status</a></li>
-                            <li class="line"></li>
-                            <li class="section"><i class="fa fa-file-o" aria-hidden="true"></i> Landing</li>
-                            <!-- <li><a href="./pages/landing.html">Landing</a></li> -->
-                            <li><a href="/admin/project/sort">Sorting</a></li>
-                            <li><a href="./pages/register.html">Register</a></li>
-                            <!-- <li><a href="./pages/404.html">404</a></li> -->
                         </ul>
                     </div>
-                </li>
-            </ul>
-        </div>
-        <div class="sidebar-footer">
-            <ul class="menu">
-                <li>
-                    <a href="/" class="dropdown-toggle" data-toggle="dropdown">
-                        <p>Engineered by Dokmeh-Studio</p>
-                    </a>
-                </li>
-            </ul>
-        </div>
-    </aside>
-
-    <script type="text/ng-template" id="sidebar-dropdown.tpl.html">
-        <div class="dropdown-background">
-            <div class="bg"></div>
-        </div>
-        <div class="dropdown-container">
-
-        </div>
-    </script>
-    <div class="app-container">
-
-        <nav class="navbar navbar-default" id="navbar">
-            <div class="container-fluid">
-                <div class="navbar-collapse collapse in">
-                    <ul class="nav navbar-nav navbar-mobile">
-                        <li>
-                            <button type="button" class="sidebar-toggle">
-                                <i class="fa fa-bars"></i>
-                            </button>
-                        </li>
-                        <li class="logo">
-                            <a class="navbar-brand" href="#"><span class="highlight">D-S</span> CMS</a>
-                        </li>
-                        <li>
-                            <button type="button" class="navbar-toggle">
-                                {{--<img class="profile-img" src="./assets/images/profile.png">--}}
-                            </button>
-                        </li>
-                    </ul>
-                    <ul class="nav navbar-nav navbar-left">
-                        <li class="navbar-title">Iranian Health System</li>
-                        <li class="navbar-search hidden-sm">
-                            <input id="search" type="text" placeholder="Search.." autocomplete="off">
-                            <button class="btn-search" style="margin-bottom: 9.5px; margin-left: -2.5px;"><i
-                                        class="fa fa-search"></i>
-                            </button>
-                        </li>
-                    </ul>
-                    <ul class="nav navbar-nav navbar-right">
+                    <div class="menu_section">
+                        <h3>Categories & Statuses</h3>
+                        <ul class="nav side-menu">
+                            <li><a href="/admin/category/create"><i class="fa fa-list"></i> Categories</a></li>
+                            <li><a href="/admin/status/create"><i class="fa fa-check-square-o"></i> Statuses</a></li>
+                            <li><a href="/admin/about"><i class="fa fa-info-circle"></i> About Page</a></li>
 
 
-                        <li class="dropdown profile">
-                            <a href="/html/pages/profile.html" class="dropdown-toggle" data-toggle="dropdown">
-                                <div class="icon"><i class="fa fa-user fa-4x" aria-hidden="true"></i></div>
-                                <div class="title">Profile</div>
-                            </a>
-                            <div class="dropdown-menu">
-                                <div class="profile-info">
-                                    @if (auth()->check())
-
-                                        <h4 class="username">{{ Auth::user()->name }}</h4>@endif
-                                </div>
-                                <ul class="action">
-                                    <li>
-                                        <a href="/admin/register">
-                                            Register new User
-                                        </a>
-                                    </li>
-
-                                    <li>
-                                        <a href="{{ url('/logout') }}"
-                                           onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                            Logout
-                                        </a>
-
-                                        <form id="logout-form" action="{{ url('/logout') }}" method="POST"
-                                              style="display: none;">
-                                            {{ csrf_field() }}
-                                        </form>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-
-
-        @yield('content')
-
-
-        <footer class="app-footer">
-            <div class="row">
-                <div class="col-xs-12">
-                    <div class="footer-copyright">
-                        Copyright © 2016 Dokmeh-Studio Co,Ltd.
+                        </ul>
                     </div>
+
                 </div>
+                <!-- /sidebar menu -->
+
+                <!-- /menu footer buttons -->
+                <div class="sidebar-footer hidden-small">
+                    <a data-toggle="tooltip" data-placement="top" title="Settings">
+                        <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+                    </a>
+                    <a data-toggle="tooltip" data-placement="top" title="FullScreen">
+                        <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
+                    </a>
+                    <a data-toggle="tooltip" data-placement="top" title="Lock">
+                        <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
+                    </a>
+                    <a data-toggle="tooltip" data-placement="top" title="Logout">
+                        <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
+                    </a>
+                </div>
+                <!-- /menu footer buttons -->
             </div>
+        </div>
+
+        <!-- top navigation -->
+        <div class="top_nav">
+            <div class="nav_menu">
+                <nav>
+                    <div class="nav toggle">
+                        <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+                    </div>
+
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="">
+                            <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown"
+                               aria-expanded="false">
+                                <img src="/gentelella/production/images/logo.png" alt="">{{ auth()->user()->name }}
+                                <span class=" fa fa-angle-down"></span>
+                            </a>
+                            <ul class="dropdown-menu dropdown-usermenu pull-right">
+                                <li><a href="/register"> <i class="fa fa-pencil-square-o pull-right"></i> Register </a>
+                                </li>
+
+                                <li><a href="{{ url('/logout') }}"
+                                       onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                        <i class="fa fa-sign-out pull-right"></i> Logout
+                                    </a>
+
+                                    <form id="logout-form" action="{{ url('/logout') }}" method="POST"
+                                          style="display: none;">
+                                        {{ csrf_field() }}
+                                    </form>
+                                </li>
+                            </ul>
+                        </li>
+
+
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        <!-- /top navigation -->
+
+        <!-- page content -->
+        <div class="right_col" role="main">
+
+
+            @yield('content')
+
+        </div>
+        <!-- /page content -->
+
+        <!-- footer content -->
+        <footer>
+            <div class="pull-right">
+                Powered By Dokmeh Studio
+            </div>
+            <div class="clearfix"></div>
         </footer>
+        <!-- /footer content -->
     </div>
 </div>
+
+<script src="/gentelella/vendors/fastclick/lib/fastclick.js"></script>
+<script src="/gentelella/vendors/nprogress/nprogress.js"></script>
+<script src="/gentelella/vendors/Chart.js/dist/Chart.min.js"></script>
+<script src="/gentelella/vendors/gauge.js/dist/gauge.min.js"></script>
+<script src="/gentelella/vendors/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
+<script src="/gentelella/vendors/iCheck/icheck.min.js"></script>
+<script src="/gentelella/vendors/skycons/skycons.js"></script>
+<script src="/gentelella/vendors/Flot/jquery.flot.js"></script>
+<script src="/gentelella/vendors/Flot/jquery.flot.pie.js"></script>
+<script src="/gentelella/vendors/Flot/jquery.flot.time.js"></script>
+<script src="/gentelella/vendors/Flot/jquery.flot.stack.js"></script>
+<script src="/gentelella/vendors/Flot/jquery.flot.resize.js"></script>
+<script src="/gentelella/vendors/flot.orderbars/js/jquery.flot.orderBars.js"></script>
+<script src="/gentelella/vendors/flot-spline/js/jquery.flot.spline.min.js"></script>
+<script src="/gentelella/vendors/flot.curvedlines/curvedLines.js"></script>
+<script src="/gentelella/vendors/DateJS/build/date.js"></script>
+<script src="/gentelella/vendors/jqvmap/dist/jquery.vmap.js"></script>
+<script src="/gentelella/vendors/jqvmap/dist/maps/jquery.vmap.world.js"></script>
+<script src="/gentelella/vendors/jqvmap/examples/js/jquery.vmap.sampledata.js"></script>
+<script src="/gentelella/vendors/moment/min/moment.min.js"></script>
+<script src="/gentelella/vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
+<script src="/gentelella/build/js/custom.min.js"></script>
+<script src="/gentelella/build/js/maps/jquery-jvectormap-world-mill-en.js"></script>
+<script src="/gentelella/build/js/maps/jquery-jvectormap-us-aea-en.js"></script>
+<script src="/gentelella/build/js/maps/gdp-data.js"></script>
+
+<script src="/js/admin/dropzone.js"></script>
+<script src="/js/admin/sweetalert.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/4.5.0/tinymce.min.js"></script>
+<script src="/gentelella/vendors/bootstrap-wysiwyg/js/bootstrap-wysiwyg.min.js"></script>
+<script src="/gentelella/vendors/jquery.hotkeys/jquery.hotkeys.js"></script>
+<script src="/gentelella/vendors/google-code-prettify/src/prettify.js"></script>
+<script>
+    $(document).ready(function () {
+        $('.datetime').daterangepicker({
+            singleDatePicker: true,
+            calender_style  : "picker_4"
+        }, function (start, end, label) {
+            console.log(start.toISOString(), end.toISOString(), label);
+        });
+    });
+</script>
+<script>
+    $(document).ready(function () {
+        $('#editor').bind("DOMSubtreeModified", function () {
+            $('#description').html(
+                $("#editor").html()
+            );
+        });
+        function initToolbarBootstrapBindings() {
+            var fonts      = ['Serif', 'Sans', 'Arial', 'Arial Black', 'Courier',
+                    'Courier New', 'Comic Sans MS', 'Helvetica', 'Impact', 'Lucida Grande', 'Lucida Sans', 'Tahoma', 'Times',
+                    'Times New Roman', 'Verdana'
+                ],
+                fontTarget = $('[title=Font]').siblings('.dropdown-menu');
+            $.each(fonts, function (idx, fontName) {
+                fontTarget.append($('<li><a data-edit="fontName ' + fontName + '" style="font-family:\'' + fontName + '\'">' + fontName + '</a></li>'));
+            });
+            $('a[title]').tooltip({
+                container: 'body'
+            });
+            $('.dropdown-menu input').click(function () {
+                return false;
+            })
+                .change(function () {
+                    $(this).parent('.dropdown-menu').siblings('.dropdown-toggle').dropdown('toggle');
+                })
+                .keydown('esc', function () {
+                    this.value = '';
+                    $(this).change();
+                });
+
+            $('[data-role=magic-overlay]').each(function () {
+                var overlay = $(this),
+                    target  = $(overlay.data('target'));
+                overlay.css('opacity', 0).css('position', 'absolute').offset(target.offset()).width(target.outerWidth()).height(target.outerHeight());
+            });
+
+            if ("onwebkitspeechchange" in document.createElement("input")) {
+                var editorOffset = $('#editor').offset();
+
+                $('.voiceBtn').css('position', 'absolute').offset({
+                    top : editorOffset.top,
+                    left: editorOffset.left + $('#editor').innerWidth() - 35
+                });
+            } else {
+                $('.voiceBtn').hide();
+            }
+        }
+
+        function showErrorAlert(reason, detail) {
+            var msg = '';
+            if (reason === 'unsupported-file-type') {
+                msg = "Unsupported format " + detail;
+            } else {
+                console.log("error uploading file", reason, detail);
+            }
+            $('<div class="alert"> <button type="button" class="close" data-dismiss="alert">&times;</button>' +
+                '<strong>File upload error</strong> ' + msg + ' </div>').prependTo('#alerts');
+        }
+
+        initToolbarBootstrapBindings();
+
+        $('#editor').wysiwyg({
+            fileUploadError: showErrorAlert
+        });
+
+        window.prettyPrint;
+        prettyPrint();
+    });
+</script>
+<!-- /bootstrap-wysiwyg -->
+<script>
+    $(document).ready(function () {
+        var data1 = [
+            [gd(2012, 1, 1), 17],
+            [gd(2012, 1, 2), 74],
+            [gd(2012, 1, 3), 6],
+            [gd(2012, 1, 4), 39],
+            [gd(2012, 1, 5), 20],
+            [gd(2012, 1, 6), 85],
+            [gd(2012, 1, 7), 7]
+        ];
+
+        var data2 = [
+            [gd(2012, 1, 1), 82],
+            [gd(2012, 1, 2), 23],
+            [gd(2012, 1, 3), 66],
+            [gd(2012, 1, 4), 9],
+            [gd(2012, 1, 5), 119],
+            [gd(2012, 1, 6), 6],
+            [gd(2012, 1, 7), 9]
+        ];
+        $("#canvas_dahs").length && $.plot($("#canvas_dahs"), [
+            data1, data2
+        ], {
+            series : {
+                lines     : {
+                    show: false,
+                    fill: true
+                },
+                splines   : {
+                    show     : true,
+                    tension  : 0.4,
+                    lineWidth: 1,
+                    fill     : 0.4
+                },
+                points    : {
+                    radius: 0,
+                    show  : true
+                },
+                shadowSize: 2
+            },
+            grid   : {
+                verticalLines: true,
+                hoverable    : true,
+                clickable    : true,
+                tickColor    : "#d5d5d5",
+                borderWidth  : 1,
+                color        : '#fff'
+            },
+            colors : ["rgba(38, 185, 154, 0.38)", "rgba(3, 88, 106, 0.38)"],
+            xaxis  : {
+                tickColor              : "rgba(51, 51, 51, 0.06)",
+                mode                   : "time",
+                tickSize               : [1, "day"],
+                //tickLength: 10,
+                axisLabel              : "Date",
+                axisLabelUseCanvas     : true,
+                axisLabelFontSizePixels: 12,
+                axisLabelFontFamily    : 'Verdana, Arial',
+                axisLabelPadding       : 10
+            },
+            yaxis  : {
+                ticks    : 8,
+                tickColor: "rgba(51, 51, 51, 0.06)",
+            },
+            tooltip: false
+        });
+
+        function gd(year, month, day) {
+            return new Date(year, month - 1, day).getTime();
+        }
+    });
+</script>
+<!-- /Flot -->
+
+<!-- JQVMap -->
+<script>
+    $(document).ready(function () {
+        $('#world-map-gdp').vectorMap({
+            map              : 'world_en',
+            backgroundColor  : null,
+            color            : '#ffffff',
+            hoverOpacity     : 0.7,
+            selectedColor    : '#666666',
+            enableZoom       : true,
+            showTooltip      : true,
+            values           : sample_data,
+            scaleColors      : ['#E6F2F0', '#149B7E'],
+            normalizeFunction: 'polynomial'
+        });
+    });
+</script>
+<!-- /JQVMap -->
+
+<!-- Skycons -->
+<script>
+    $(document).ready(function () {
+        var icons = new Skycons({
+                "color": "#73879C"
+            }),
+            list  = [
+                "clear-day", "clear-night", "partly-cloudy-day",
+                "partly-cloudy-night", "cloudy", "rain", "sleet", "snow", "wind",
+                "fog"
+            ],
+            i;
+
+        for (i = list.length; i--;)
+            icons.set(list[i], list[i]);
+
+        icons.play();
+    });
+</script>
+<!-- /Skycons -->
+
+<!-- Doughnut Chart -->
+<script>
+    $(document).ready(function () {
+        var options = {
+            legend    : false,
+            responsive: false
+        };
+
+        new Chart(document.getElementById("canvas1"), {
+            type            : 'doughnut',
+            tooltipFillColor: "rgba(51, 51, 51, 0.55)",
+            data            : {
+                labels  : [
+                    "Symbian",
+                    "Blackberry",
+                    "Other",
+                    "Android",
+                    "IOS"
+                ],
+                datasets: [{
+                    data                : [15, 20, 30, 10, 30],
+                    backgroundColor     : [
+                        "#BDC3C7",
+                        "#9B59B6",
+                        "#E74C3C",
+                        "#26B99A",
+                        "#3498DB"
+                    ],
+                    hoverBackgroundColor: [
+                        "#CFD4D8",
+                        "#B370CF",
+                        "#E95E4F",
+                        "#36CAAB",
+                        "#49A9EA"
+                    ]
+                }]
+            },
+            options         : options
+        });
+    });
+</script>
+<!-- /Doughnut Chart -->
+
+<!-- bootstrap-daterangepicker -->
+<script>
+    $(document).ready(function () {
+
+        var cb = function (start, end, label) {
+            console.log(start.toISOString(), end.toISOString(), label);
+            $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+        };
+
+        var optionSet1 = {
+            startDate          : moment().subtract(29, 'days'),
+            endDate            : moment(),
+            minDate            : '01/01/2012',
+            maxDate            : '12/31/2015',
+            dateLimit          : {
+                days: 60
+            },
+            showDropdowns      : true,
+            showWeekNumbers    : true,
+            timePicker         : false,
+            timePickerIncrement: 1,
+            timePicker12Hour   : true,
+            ranges             : {
+                'Today'       : [moment(), moment()],
+                'Yesterday'   : [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                'Last 7 Days' : [moment().subtract(6, 'days'), moment()],
+                'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+                'This Month'  : [moment().startOf('month'), moment().endOf('month')],
+                'Last Month'  : [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+            },
+            opens              : 'left',
+            buttonClasses      : ['btn btn-default'],
+            applyClass         : 'btn-small btn-primary',
+            cancelClass        : 'btn-small',
+            format             : 'MM/DD/YYYY',
+            separator          : ' to ',
+            locale             : {
+                applyLabel      : 'Submit',
+                cancelLabel     : 'Clear',
+                fromLabel       : 'From',
+                toLabel         : 'To',
+                customRangeLabel: 'Custom',
+                daysOfWeek      : ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
+                monthNames      : ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+                firstDay        : 1
+            }
+        };
+        $('#reportrange span').html(moment().subtract(29, 'days').format('MMMM D, YYYY') + ' - ' + moment().format('MMMM D, YYYY'));
+        $('#reportrange').daterangepicker(optionSet1, cb);
+        $('#reportrange').on('show.daterangepicker', function () {
+            console.log("show event fired");
+        });
+        $('#reportrange').on('hide.daterangepicker', function () {
+            console.log("hide event fired");
+        });
+        $('#reportrange').on('apply.daterangepicker', function (ev, picker) {
+            console.log("apply event fired, start/end dates are " + picker.startDate.format('MMMM D, YYYY') + " to " + picker.endDate.format('MMMM D, YYYY'));
+        });
+        $('#reportrange').on('cancel.daterangepicker', function (ev, picker) {
+            console.log("cancel event fired");
+        });
+        $('#options1').click(function () {
+            $('#reportrange').data('daterangepicker').setOptions(optionSet1, cb);
+        });
+        $('#options2').click(function () {
+            $('#reportrange').data('daterangepicker').setOptions(optionSet2, cb);
+        });
+        $('#destroy').click(function () {
+            $('#reportrange').data('daterangepicker').remove();
+        });
+    });
+</script>
+<!-- /bootstrap-daterangepicker -->
+
+<!-- gauge.js -->
+<script>
+    var opts   = {
+        lines           : 12,
+        angle           : 0,
+        lineWidth       : 0.4,
+        pointer         : {
+            length     : 0.75,
+            strokeWidth: 0.042,
+            color      : '#1D212A'
+        },
+        limitMax        : 'false',
+        colorStart      : '#1ABC9C',
+        colorStop       : '#1ABC9C',
+        strokeColor     : '#F0F3F3',
+        generateGradient: true
+    };
+    var target = document.getElementById('foo'),
+        gauge  = new Gauge(target).setOptions(opts);
+
+    gauge.maxValue       = 6000;
+    gauge.animationSpeed = 32;
+    gauge.set(3200);
+    gauge.setTextField(document.getElementById("gauge-text"));
+</script>
 @include('partials.flash')
+
 
 </body>
 </html>

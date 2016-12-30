@@ -2,9 +2,9 @@
 
 	namespace App\Http\Controllers;
 
-	use App\Category;
+	use App\About;
+	use App\Photo;
 	use App\Project;
-	use App\Status;
 	use Illuminate\Http\Request;
 
 	class AdminsController extends Controller {
@@ -26,49 +26,6 @@
 			return view('admin.home', compact('projects'));
 		}
 
-		public function create()
-		{
-
-			$categories = Category::get();
-			$statuses   = Status::get();
-
-
-			return view('admin.create', compact('categories', 'statuses'));
-		}
-
-		public function store(Request $request)
-		{
-			//
-		}
-
-		public function show($id)
-		{
-			$project = Project::find($id);
-
-			return view('admin.show', compact('project'));
-		}
-
-		public function edit($project)
-		{
-			//			dd($project->id);
-			$project = Project::find($project);
-			$project->load('awards.photo');
-			$categories = Category::get();
-			$statuses   = Status::get();
-
-			return view('admin.edit', compact('project', 'categories', 'statuses'));
-		}
-
-		public function update(Request $request, $id)
-		{
-			//
-		}
-
-		public function destroy($id)
-		{
-			//
-		}
-
 		public function login()
 		{
 			return view('admin.login');
@@ -79,24 +36,58 @@
 			return view('admin.register');
 		}
 
-		public function category()
+		public function about()
 		{
-			$categories = Category::all();
+			$about = About::first();
 
-			return view('admin.create-category', compact('categories'));
+			return view('admin.about', compact('about'));
 		}
 
-		public function status()
+		public function CreateAbout(Request $request)
 		{
-			$statuses = Status::all();
 
-			return view('admin.create-status', compact('statuses'));
+			About::create($request->all());
+
+			return back();
 		}
 
-		public function sort()
+		public function UpdateAbout(Request $request)
 		{
-			$projects = Project::sorted()->get();
 
-			return view('admin.sorting', compact('projects'));
+			$about = About::first();
+			$about->update($request->all());
+
+			return back();
 		}
+
+		public function addPhotosForAbout(Request $request)
+		{
+			$about = About::first();
+			$file  = $request->file('file');
+			$name  = time() . $file->getClientOriginalName();
+			$file->move('img/about/photos', $name);
+
+			//			$project = Project::find($id);
+
+			$about->photos()->create([
+				                         'image' => "/img/about/photos/{$name}",
+				                         'name'  => $name,
+			                         ]);
+
+			return back();
+		}
+
+		public function deletePhotosForAbout($id)
+		{
+			$photo = Photo::find($id);
+			$path  = $photo->image;
+			unlink(public_path($path));
+			$photo->destroy($id);
+
+
+			flash()->error('Deleted', 'The Photo Has been Deleted.');
+
+			return back();
+		}
+
 	}

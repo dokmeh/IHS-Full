@@ -15,8 +15,12 @@
 			Schema::create('awards', function (Blueprint $table) {
 				$table->increments('id');
 				$table->string('name');
+				$table->string('name_fa');
 				$table->text('description');
+				$table->text('description_fa');
+				$table->enum('visible', [0, 1]);
 				$table->integer('date');
+				$table->integer('sort');
 				$table->integer('project_id')->unsigned();
 				$table->foreign('project_id')->references('id')->on('projects')->onDelete('CASCADE')->onUpdate('CASCADE');
 				$table->timestamps();

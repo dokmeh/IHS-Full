@@ -4,16 +4,15 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <base href="{{ url('/') }}">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
     <title>IHS</title>
     <link rel="stylesheet" href="{{ elixir('css/all.css') }}">
     <link rel="stylesheet" href="{{ elixir('css/component.css') }}">
     <link rel="stylesheet" href="{{ elixir('css/style.css') }}">
-    <script src="{{ elixir('js/reval.js') }}"></script>
-    <script src="{{ elixir('js/jquery-3.1.1.min.js') }}"></script>
-    <script src="{{ elixir('js/classie.js') }}"></script>
-    <script src="{{ elixir('js/script.js') }}"></script>
-    <script src="{{ elixir('js/all.js') }}"></script>
+    <script src="/js/jquery-3.1.1.min.js"></script>
+    <script src="/js/reval.js"></script>
+    <script src="/js/classie.js"></script>
 </head>
 <body data-page="{{ $page }}">
 <div id="st-container" class="st-container">
@@ -23,11 +22,11 @@
             <img src="/img/logo.png" alt="">
         </div>
         <ul>
-            <li><a class="menu-a" href="/home" data-page="/home">Home</a></li>
-            <li><a class="menu-a" href="/about" data-page="/about">About</a></li>
-            <li><a class="menu-a" href="/projects" data-page="/projects">Projects</a></li>
-            <li><a class="menu-a" href="/awards" data-page="/awards">Awards</a></li>
-            <li><a class="menu-a" href="/contact" data-page="/contact">Contact us</a></li>
+            <li><a class="menu-a" href="/home" data-page="home">Home</a></li>
+            <li><a class="menu-a" href="/about" data-page="about">About</a></li>
+            <li><a class="menu-a" href="/projects" data-page="projects">Projects</a></li>
+            <li><a class="menu-a" href="/awards" data-page="awards">Awards</a></li>
+            <li><a class="menu-a" href="/contact" data-page="contact">Contact us</a></li>
         </ul>
     </nav>
     <div class="st-pusher">
@@ -54,6 +53,8 @@
     </div><!-- /st-pusher -->
 
 </div><!-- /st-container -->
+
+<script src="/js/script.js"></script>
 
 </body>
 <script type="text/javascript">

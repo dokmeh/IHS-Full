@@ -14,11 +14,11 @@
 		{
 			Schema::create('photos', function (Blueprint $table) {
 				$table->increments('id');
-				$table->integer('project_id')->unsigned()->nullable();
-				$table->integer('award_id')->unsigned()->nullable();
 				$table->string('image');
-				$table->foreign('project_id')->references('id')->on('projects')->onDelete('CASCADE')->onUpdate('CASCADE');
-				$table->foreign('award_id')->references('id')->on('awards')->onDelete('CASCADE')->onUpdate('CASCADE');
+				$table->string('name');
+				$table->integer('sort');
+				$table->integer('photoable_id');
+				$table->string('photoable_type');
 				$table->timestamps();
 			});
 		}
