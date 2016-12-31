@@ -51,8 +51,8 @@
 
                             <hr>
 
-                            <h3>Description: </h3>  <p>{{ $about->description }}</p>
-                            <h3>Persian Description: </h3>  <p>{{ $about->description_fa }}</p>
+                            <h3>Description: </h3>  <p>{!! $about->description !!}/p>
+                            <h3>Persian Description: </h3>  <p>{!! $about->description_fa !!}</p>
 
                             @if (count($about->photos) > 0)
                                 @foreach ($about->photos as $photo)

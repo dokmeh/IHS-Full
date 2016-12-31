@@ -14,7 +14,7 @@
 		public function store(Request $request)
 		{
 			$project = Project::create($request->all());
-			flash()->overlay('Success', 'Now Add Persian Information');
+			flash()->overlay('Success', 'Now Add Photos Information');
 
 			return redirect("/admin/project/create/fa/{$project->id}");
 		}
@@ -43,7 +43,7 @@
 
 			//			$project = Project::find($id);
 
-			$project->thumbnails()->create(['thumbnail_path' => "/img/project/photos/thumbnails/{$name}"]);
+			$project->thumbnail()->create(['thumbnail_path' => "/img/project/photos/thumbnails/{$name}"]);
 
 			return redirect('admin/project/' . $project->id);
 

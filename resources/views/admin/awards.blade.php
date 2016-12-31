@@ -67,6 +67,7 @@
                                             <th style="width: 1%">Handle</th>
                                             <th style="width: 1%">ID</th>
                                             <th style="width: 20%">Award Name</th>
+                                            <th style="width: 20%">Visibility</th>
                                             <th style="width: 20%">#Edit</th>
                                         </tr>
                                         </thead>
@@ -83,6 +84,18 @@
                                                     <a>{{ $award->name}}</a>
                                                     <br/>
                                                     <small>{{ $award->created_at }}</small>
+                                                </td>
+
+                                                <td>
+                                                    @if ($award->visible == 1)
+                                                        <span type="button"
+                                                              class="btn btn-success btn-xs">Showing</span>
+                                                    @endif
+                                                    @if ($award->visible == 0)
+                                                        <span type="button"
+                                                              class="btn btn-default btn-xs">Hide</span>
+                                                    @endif
+
                                                 </td>
 
 
@@ -135,6 +148,8 @@
 
                         </div>
                     @endforeach
+                @else
+                    <h3>There is no Project(s)</h3>
                 @endif
 
             </div>

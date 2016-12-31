@@ -94,7 +94,7 @@
 
     </div>
     <div class="project-gallery a-w-d">
-    @foreach($project->photos as $photo)
+    @foreach($project->photos()->sorted()->get() as $photo)
 
         <!-- lotfan avalin slide class e " .show " dashte bashe -->
             <div class="slide project-img-box">

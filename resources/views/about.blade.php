@@ -9,7 +9,7 @@
             </div>
             <div class="about-box about-text">
                 <div class="about-content a-w-d">
-                    <p>{{ $about->description }}</p>
+                    <p>{!! $about->description !!}</p>
                 </div>
             </div>
         </div>

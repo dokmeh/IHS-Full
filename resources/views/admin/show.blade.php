@@ -193,8 +193,7 @@
                                     <div class="text-center mtop20">
                                         <a href="/admin/project/{{ $project->id }}/awards/create"
                                            class="btn btn-sm btn-primary">Add Award</a>
-                                        <a href="/admin/project/{{ $project->id }}/publications/create"
-                                           class="btn btn-sm btn-warning">Add Publication</a>
+
                                         <a href="/admin/project/{{ $project->id }}/edit" class="btn btn-sm btn-success">Edit</a>
                                         <a id="{{ $project->id }}"
                                            data-href="/admin/project/{{ $project->id }}/deletebtn"

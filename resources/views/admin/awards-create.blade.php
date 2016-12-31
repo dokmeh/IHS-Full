@@ -124,7 +124,7 @@
                             <div class="ln_solid"></div>
                             <div class="form-group">
                                 <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                                    <a href="/admin/project/{{ $project->id }}/publications/create"
+                                    <a href="/admin/project/{{ $project->id }}/"
                                        class="btn btn-primary">Cancel</a>
                                     <button type="submit" id="submit" value="submit" class="btn btn-success">Submit
                                     </button>

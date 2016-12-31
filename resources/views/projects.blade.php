@@ -23,7 +23,7 @@
             @foreach ($projects as $project)
 
                 <div class="projects-boxes" data-cat="{{ $project->category->id }}">
-                    <a data-title="{{ $project->title }}" href="projects/{{ $project->title }}"
+                    <a data-title="{{ $project->title }}" href="projects/{{ str_replace(' ', '-', $project->title) }}"
                        class="projects-box a-w-d">
                         <div class="projects-content">
                             @if (count($project->thumbnail) > 0)

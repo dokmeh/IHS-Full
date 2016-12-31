@@ -140,7 +140,12 @@
                             </table>
                             <!-- end project list -->
                             @else
-                                <h2 class="text-center">There is no project.</h2>
+                                <h2 class="text-center">There is no project.
+                                </h2>
+                                <h3 class="text-center"><a class="btn btn-primary" href="/admin/project/create">Add
+                                                                                                                Here</a>
+                                </h3>
+
 
                         </div>
                     @endif

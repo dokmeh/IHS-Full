@@ -91,7 +91,7 @@
 		public function awards(Request $request)
 		{
 			$page    = 'awards';
-			$awards  = Award::all();
+			$awards  = Award::where('visible', 1)->sorted()->get();
 			$content = view('awards', compact('awards'));
 			if ($request->ajax()) {
 				return $content;
@@ -103,7 +103,7 @@
 		public function awards_fa(Request $request)
 		{
 			$page    = 'awards';
-			$awards  = Award::all();
+			$awards  = Award::where('visible', 1)->sorted()->get();
 			$content = view('awards_fa', compact('awards'));
 			if ($request->ajax()) {
 				return $content;

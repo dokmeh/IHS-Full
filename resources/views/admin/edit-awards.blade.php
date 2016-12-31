@@ -123,16 +123,36 @@
                                 </div>
                             </div>
 
-
-                            <div class="ln_solid"></div>
                             <div class="form-group">
-                                <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                                    <a href="/admin/awards/{{ $award->id }}/edit"
-                                       class="btn btn-primary">Cancel</a>
-                                    <button type="submit" id="submit" value="submit" class="btn btn-success">Submit
-                                    </button>
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Visibility</label>
+                                <div>
+                                    <div id="gender" class="btn-group" data-toggle="buttons">
+                                        <label class="btn btn-default" data-toggle-class="btn-primary"
+                                               data-toggle-passive-class="btn-default">
+                                            <input type="radio" name="visible" value="0"> &nbsp; Hide
+                                                                                          &nbsp;
+                                        </label>
+                                        <label class="btn btn-default" data-toggle-class="btn-primary"
+                                               data-toggle-passive-class="btn-default">
+                                            <input type="radio" name="visible" value="1"> Show
+                                        </label>
+                                    </div>
                                 </div>
                             </div>
+
+
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+
+
+                                <div class="ln_solid"></div>
+                                <div class="form-group">
+                                    <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                                        <a href="/admin/awards/{{ $award->id }}/edit"
+                                           class="btn btn-primary">Cancel</a>
+                                        <button type="submit" id="submit" value="submit" class="btn btn-success">Submit
+                                        </button>
+                                    </div>
+                                </div>
 
                         </form>
 
@@ -142,10 +162,27 @@
 
 
 
-                            <img width="100px" src="{{ $award->photo->image }}" alt=""><a
-                                    href="/admin/project/award/photo/{{ $award->photo->id }}/deletebtn"><i
+                            <img width="100px" src="{{ $award->photo->image }}" alt=""><a id="{{ $award->photo->id }}"
+                                                                                          data-href="/admin/project/award/photo/{{ $award->photo->id }}/deletebtn"><i
                                         class="fa fa-times fa-2x"
                                         aria-hidden="true"></i></a>
+                            <script>
+                                $('a#{{ $award->photo->id }}').on('click', function () {
+                                    swal({
+                                            title             : "Are you sure?",
+                                            text              : "You will not be able to recover this!",
+                                            type              : "warning",
+                                            showCancelButton  : true,
+                                            confirmButtonColor: "#DD6B55",
+                                            confirmButtonText : "Yes, delete it!",
+                                            closeOnConfirm    : false
+                                        },
+                                        function () {
+                                            href                 = $('#{{ $award->photo->id }}').attr('data-href');
+                                            window.location.href = href;
+                                        });
+                                })
+                            </script>
 
                         @endif
 
